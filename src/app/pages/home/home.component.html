@@ -1,0 +1,41 @@
+<h2>Formulario de Cuenta</h2>
+<form>
+  <label for="numeroCuenta">Número de cuenta:</label>
+  <input type="text" id="numeroCuenta" name="numeroCuenta" [(ngModel)]="numeroCuenta">
+  <button type="button" (click)="getCuenta()">Aceptar</button><br><br>
+
+  <div *ngIf="cuenta">
+    <label for="cedula">Cédula:</label>
+    <input type="text" id="cedula" name="cedula" [value]="cuenta.cedula" readonly><br><br>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" [value]="cuenta.nombre" readonly><br><br>
+
+    <label for="cuenta">Cuenta:</label>
+    <input type="text" id="cuenta" name="cuenta" [value]="cuenta.numero" readonly><br><br>
+
+    <h3>Detalle</h3>
+    <table *ngIf="movimientos.length">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Transacción</th>
+          <th>Ingreso</th>
+          <th>Egreso</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movimiento of movimientos;">
+          <td>{{movimiento.codigo }}</td>
+          <td>{{ movimiento.fecha }}</td>
+          <td>{{ movimiento.tansaccion }}</td>
+          <td *ngIf="movimiento.tipo">{{ movimiento.valor }}</td>
+          <td *ngIf="!movimiento.tipo">{{ movimiento.valor }}</td>
+          <td><!-- Aquí puedes calcular el saldo si lo necesitas --></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
